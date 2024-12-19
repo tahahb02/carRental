@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>updateCar</title>
+    <link rel="stylesheet" href="/webjars/bootstrap/5.3.0/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/webjars/font-awesome/6.1.1/css/all.min.css">
+</head>
+<body>
+
+<div class="container-fluid" >
+    <div class="row">
+        <section th:replace="template :: content">
+        </section>
+
+        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 pt-5">
+
+<div class="container mt-5">
+    <div class="card">
+        <div class="card-header">
+            <h2 class="card-title">Update Item</h2>
+        </div>
+        <div class="card-body">
+    <form id="updateForm" th:object="${car}" th:action="@{/save}" method="post">
+        <div class="form-group">
+            <label for="itemName">Name</label>
+            <input type="text" class="form-control" id="itemName" name="name" th:value="*{name}" required>
+        </div>
+        <div class="form-group">
+            <label for="itemModel">Model</label>
+            <input type="text" class="form-control" id="itemModel" name="model" th:value="*{model}" required>
+        </div>
+        <div class="form-group">
+            <label for="itemImage">Image</label>
+            <input type="file" class="form-control" id="itemImage" name="imageUrl" th:value="*{imageUrl}">
+        </div>
+        <div class="form-group">
+            <label for="itemAvailability">Availability</label>
+            <select class="form-control" id="itemAvailability" name="available">
+                <option value="true" th:selected="${car.available}">Available</option>
+                <option value="false" th:selected="${!car.available}">Unavailable</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="itemPriceRent">Price Rent</label>
+            <input type="text" class="form-control" id="itemPriceRent" name="price_rent" th:value="*{price_rent}">
+        </div>
+        <input type="hidden" id="itemId" name="id" th:value="*{id}">
+        <button type="submit" class="btn btn-primary">Update</button>
+    </form>
+</div>
+</div>
+</div>
+
+        </main>
+
+
+    </div>
+</div>
+
+
+
+<script src="/webjars/jquery/3.6.0/jquery.min.js"></script>
+<script src="/webjars/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

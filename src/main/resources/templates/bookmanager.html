@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Book Car</title>
+    <link rel="stylesheet" href="/webjars/bootstrap/5.3.0/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/webjars/font-awesome/6.1.1/css/all.min.css">
+</head>
+<body>
+
+<div class="container-fluid" >
+    <div class="row">
+        <section th:replace="templateUser :: content">
+        </section>
+
+        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 pt-5">
+
+
+
+
+            <h2>Book Car</h2>
+            <hr>
+            <div class="row mb-3">
+                <form method="post" action="/user/searchUser">
+                    <div class="input-group">
+                        <input type="text" name="searchkey" class="form-control" placeholder="Search Car">
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary" type="submit">Search</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <table class="table table-bordered text-center" style="vertical-align: middle">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Model</th>
+                    <th>Image</th>
+                    <th>Price Rent</th>
+                    <th>Book Now</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="c : ${cars}">
+                    <td th:text="${c.id}"></td>
+                    <td th:text="${c.name}" class="name"></td>
+                    <td th:text="${c.model}"></td>
+                    <td>
+                        <img th:src="${'/' + c.imageUrl}" style="width: 80px;height:50px ; aspect-ratio: 1/1;" alt="Car Image">
+                    </td>
+
+                    <td th:text="${c.price_rent}+' dhs/jrs'"></td>
+                    <td>
+                        <a class="btn btn-primary h4 m-3" th:href="@{/user/bookcar/{id}(id=${c.id})}">Book Now</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </main>
+
+
+    </div>
+</div>
+
+
+<script src="/webjars/jquery/3.6.0/jquery.min.js"></script>
+<script src="/webjars/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

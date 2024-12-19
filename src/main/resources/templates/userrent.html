@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>car rent</title>
+    <link rel="stylesheet" href="/webjars/bootstrap/5.3.0/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/webjars/font-awesome/6.1.1/css/all.min.css">
+</head>
+<body>
+
+<div class="container-fluid" >
+    <div class="row">
+        <section th:replace="templateUser :: content">
+        </section>
+
+        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 pt-5">
+
+            <h2>Car Rent</h2>
+            <hr>
+
+<table class="table table-dark text-center">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>User Name</th>
+        <th>Car Name</th>
+        <th>Start Date</th>
+        <th>End Date</th>
+        <th>Confirmed</th>
+        <th>Total Price</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="r : ${rents}">
+        <td th:text="${r.id}"></td>
+        <td th:text="${r.user.fullname}"></td>
+        <td th:text="|${r.car.name} ${r.car.model}|"></td>
+        <td th:text="${r.startDate}"></td>
+        <td th:text="${r.endDate}"></td>
+        <td th:text="${r.confirmed ? 'Yes' : 'No'}"></td>
+        <td th:text="${r.total_price}"></td>
+    </tr>
+    <!-- Table rows will be populated dynamically -->
+    </tbody>
+</table>
+
+        </main>
+
+
+    </div>
+</div>
+<script src="/webjars/jquery/3.6.0/jquery.min.js"></script>
+<script src="/webjars/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+       lang="en" >
+<head>
+    <meta charset="UTF-8">
+    <title>Car Management</title>
+    <link rel="stylesheet" href="/webjars/bootstrap/5.3.0/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/webjars/font-awesome/6.1.1/css/all.min.css">
+</head>
+<body>
+
+
+<div class="container-fluid" >
+    <div class="row">
+<section th:replace="template :: content">
+</section>
+
+        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 pt-5">
+
+
+
+
+    <h2>Car Manager</h2>
+            <hr>
+            <div class="row mb-3">
+                <div class="col">
+                    <button data-bs-target="#addCarModal" data-bs-toggle="modal" class="btn btn-primary">Add Car</button>
+                </div>
+                <div class="col">
+                    <form method="post" action="/admin/searchAdmin">
+                        <div class="input-group">
+                            <input type="text" name="searchkey" class="form-control" placeholder="Search Car">
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-secondary" type="submit">Search</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <table class="table table-bordered text-center" style="vertical-align: middle">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Model</th>
+            <th>Image</th>
+            <th>Availability</th>
+            <th>Price Rent</th>
+            <th>Action</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="c : ${cars}">
+            <td th:text="${c.id}"></td>
+            <td th:text="${c.name}" class="name"></td>
+            <td th:text="${c.model}"></td>
+            <td>
+                <img th:src="${'/' + c.imageUrl}" style="width: 80px;height:50px ; aspect-ratio: 1/1;" alt="Car Image">
+            </td>
+            <td>  <span th:if="${c.available} == true">
+        <i class="fas fa-check text-success"></i> <!-- Green check icon -->
+    </span>
+                <span th:if="${c.available} == false">
+        <i class="fas fa-times text-danger"></i> <!-- Red X icon -->
+    </span></td>
+            <td th:text="${c.price_rent}+' dhs/jrs'"></td>
+            <td>
+                <a class="h4 m-3" th:href="@{/admin/editcar/{id}(id=${c.id})}"> <i class="fa-solid fa-edit fa-beat text-info"></i></a>
+                <a class="h4 m-3" th:href="@{/admin/deletecar/{id}(id=${c.id})}"> <i class="fa-solid fa-trash fa-shake text-danger"></i></a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+        </main>
+
+
+    </div>
+</div>
+
+
+<div class="modal fade" id="addCarModal" tabindex="-1" aria-labelledby="addCarModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addCarModalLabel">Create Car</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="/admin/car" method="post" th:object="${car}" id="addCarForm">
+                    <div class="form-group mb-1">
+                        <label for="name">Car Name</label>
+                        <input type="text" class="form-control" id="name" th:field="*{name}" required>
+                    </div>
+                    <div class="form-group mb-1">
+                        <label for="model">Car Model</label>
+                        <input type="text" class="form-control" id="model" th:field="*{model}" required>
+                    </div>
+                    <div class="form-group mb-1">
+                        <label for="image">Image URL</label>
+                        <input type="file" class="form-control" id="image" th:field="*{imageUrl}" required>
+                    </div>
+                    <div class="form-group mb-1">
+                        <label for="availability">Availability</label>
+                        <select class="form-control" id="availability" th:field="*{available}" required>
+                            <option value="true">Available</option>
+                            <option value="false">Unavailable</option>
+                        </select>
+                    </div>
+                    <div class="form-group mb-1">
+                        <label for="priceRent">Price Rent</label>
+                        <input type="number" class="form-control" id="priceRent" th:field="*{price_rent}" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Create</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="/webjars/jquery/3.6.0/jquery.min.js"></script>
+<script src="/webjars/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
